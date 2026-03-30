@@ -505,3 +505,28 @@ body {
   background-color: #64748b;
   border-radius: 3px;
 }
+
+/* Version 3 Specifics */
+.card-accent-amber {
+  border-left: 4px solid var(--warning-color) !important;
+}
+
+.card-accent-blue {
+  border-left: 4px solid var(--primary-color) !important;
+}
+
+.sidebar-item-box {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+.amber-accent {
+  color: #9a3412;
+}
+
+.blue-accent {
+  color: #4338ca;
+}

@@ -19,7 +19,7 @@ import {
 import './index.css';
 
 function App() {
-  const [version, setVersion] = useState<'original' | 'v1' | 'v2'>('v2');
+  const [version, setVersion] = useState<'original' | 'v1' | 'v2' | 'v3'>('v3');
 
   return (
     <div className="dashboard-layout">
@@ -113,6 +113,12 @@ function App() {
           >
             Version 2
           </button>
+          <button 
+            className={`version-btn ${version === 'v3' ? 'active' : ''}`}
+            onClick={() => setVersion('v3')}
+          >
+            Version 3
+          </button>
         </div>
 
         <div className="breadcrumbs">
@@ -123,8 +129,8 @@ function App() {
           <span className="active">Homepage Iteration</span>
         </div>
 
-        <div className={(version === 'v1' || version === 'v2') ? 'page-grid' : ''}>
-          <div className={(version === 'v1' || version === 'v2') ? 'left-column' : ''}>
+        <div className={(version === 'v1' || version === 'v2' || version === 'v3') ? 'page-grid' : ''}>
+          <div className={(version === 'v1' || version === 'v2' || version === 'v3') ? 'left-column' : ''}>
             {/* Header Card */}
             <div className="card">
               <div className="header-row">
@@ -218,36 +224,50 @@ function App() {
             </div>
           </div>
 
-          {/* Version 1 & 2 Right Sidebar */}
-          {(version === 'v1' || version === 'v2') && (
-            <div className="sidebar-right" style={{ width: version === 'v2' ? 320 : 300 }}>
-              <div className="sidebar-field">
-                <span className="field-label">LABELS</span>
-                <div className="pills-row">
-                  <span className="pill pill-design">Design</span>
-                  <span className="pill pill-homepage">Homepage</span>
+          {/* Sidebar right for V1, V2, V3 */}
+          {(version === 'v1' || version === 'v2' || version === 'v3') && (
+            <div className="sidebar-container" style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: 300 }}>
+              
+              {/* Properties Card (V3 uses separate cards) */}
+              <div className="sidebar-right" style={{ width: '100%', gap: version === 'v3' ? '16px' : '24px' }}>
+                <div className="sidebar-field">
+                  <span className="field-label">LABELS</span>
+                  <div className="pills-row">
+                    <span className="pill pill-design">Design</span>
+                    <span className="pill pill-homepage">Homepage</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="sidebar-field">
-                <span className="field-label">ESTIMATE</span>
-                <div className="sidebar-value">
-                  <Diamond size={16} color="#64748B" />
-                  <span>{version === 'v1' ? '3' : '5'} points</span>
+                <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span className="field-label" style={{ marginBottom: 0 }}>ESTIMATE</span>
+                  <div className="sidebar-value">
+                    <Diamond size={16} color="#64748B" />
+                    <span>{version === 'v1' ? '3' : version === 'v2' ? '5' : '3'} points</span>
+                  </div>
                 </div>
-              </div>
 
-              {version === 'v2' && (
-                <div className="status-banner">
-                  <span>⏳ Waiting feedback — Alison</span>
-                </div>
-              )}
+                {version === 'v2' && (
+                  <div className="status-banner">
+                    <span>⏳ Waiting feedback — Alison</span>
+                  </div>
+                )}
 
-              <div className="sidebar-field">
-                <span className="field-label">CYCLE</span>
-                <div className="sidebar-value">
-                  <CircleDot size={16} color="#64748B" />
-                  <span>Sprint 12 {version === 'v2' && '· Mar 2 – Mar 16'}</span>
+                {version === 'v3' && (
+                  <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span className="field-label" style={{ marginBottom: 0 }}>REVIEWER</span>
+                    <div className="reviewer-badge" style={{ padding: 0, border: 'none' }}>
+                      <div className="avatar" style={{ width: 18, height: 18, fontSize: 9, backgroundColor: '#3b82f6' }}>A</div>
+                      <span style={{ fontSize: 13 }}>Alison</span>
+                    </div>
+                  </div>
+                )}
+
+                <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span className="field-label" style={{ marginBottom: 0 }}>CYCLE</span>
+                  <div className="sidebar-value">
+                    <CircleDot size={16} color="#64748B" />
+                    <span>Sprint 12 {version === 'v2' && '· Mar 2 – Mar 16'}</span>
+                  </div>
                 </div>
                 {version === 'v2' && (
                   <div className="progress-container">
@@ -256,8 +276,30 @@ function App() {
                 )}
               </div>
 
+              {/* Card 2: Dependencies (V3) */}
+              {version === 'v3' && (
+                <div className="sidebar-right card-accent-amber" style={{ width: '100%', gap: '8px' }}>
+                  <span className="field-label">DEPENDENCIES</span>
+                  <div className="sidebar-item-box amber-accent">
+                    <span style={{ fontSize: 13, fontWeight: 500 }}>🔗 Awaiting Alison feedback</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Card 3: Next Action (V3) */}
+              {version === 'v3' && (
+                <div className="sidebar-right card-accent-blue" style={{ width: '100%', gap: '8px' }}>
+                  <span className="field-label">NEXT ACTION</span>
+                  <div className="sidebar-item-box blue-accent" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
+                    <span style={{ fontSize: 13, fontWeight: 600 }}>Font Exploration → Rasya</span>
+                    <span style={{ fontSize: 11, color: '#64748B' }}>(existing font + 2 alternatives)</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Original Reviewer field for V1 */}
               {version === 'v1' && (
-                <div className="sidebar-field">
+                <div className="sidebar-field" style={{ marginTop: 'auto' }}>
                   <span className="field-label">REVIEWER</span>
                   <div className="reviewer-badge">
                     <div className="avatar" style={{ width: 20, height: 20, fontSize: 10, backgroundColor: '#3b82f6' }}>A</div>
