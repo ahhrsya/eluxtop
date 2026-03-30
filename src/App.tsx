@@ -19,7 +19,7 @@ import {
 import './index.css';
 
 function App() {
-  const [version, setVersion] = useState<'original' | 'v1'>('v1');
+  const [version, setVersion] = useState<'original' | 'v1' | 'v2'>('v2');
 
   return (
     <div className="dashboard-layout">
@@ -107,6 +107,12 @@ function App() {
           >
             Version 1
           </button>
+          <button 
+            className={`version-btn ${version === 'v2' ? 'active' : ''}`}
+            onClick={() => setVersion('v2')}
+          >
+            Version 2
+          </button>
         </div>
 
         <div className="breadcrumbs">
@@ -117,8 +123,8 @@ function App() {
           <span className="active">Homepage Iteration</span>
         </div>
 
-        <div className={version === 'v1' ? 'page-grid' : ''}>
-          <div className={version === 'v1' ? 'left-column' : ''}>
+        <div className={(version === 'v1' || version === 'v2') ? 'page-grid' : ''}>
+          <div className={(version === 'v1' || version === 'v2') ? 'left-column' : ''}>
             {/* Header Card */}
             <div className="card">
               <div className="header-row">
@@ -212,9 +218,9 @@ function App() {
             </div>
           </div>
 
-          {/* Version 1 Right Sidebar */}
-          {version === 'v1' && (
-            <div className="sidebar-right">
+          {/* Version 1 & 2 Right Sidebar */}
+          {(version === 'v1' || version === 'v2') && (
+            <div className="sidebar-right" style={{ width: version === 'v2' ? 320 : 300 }}>
               <div className="sidebar-field">
                 <span className="field-label">LABELS</span>
                 <div className="pills-row">
@@ -227,25 +233,48 @@ function App() {
                 <span className="field-label">ESTIMATE</span>
                 <div className="sidebar-value">
                   <Diamond size={16} color="#64748B" />
-                  <span>3 points</span>
+                  <span>{version === 'v1' ? '3' : '5'} points</span>
                 </div>
               </div>
+
+              {version === 'v2' && (
+                <div className="status-banner">
+                  <span>⏳ Waiting feedback — Alison</span>
+                </div>
+              )}
 
               <div className="sidebar-field">
                 <span className="field-label">CYCLE</span>
                 <div className="sidebar-value">
                   <CircleDot size={16} color="#64748B" />
-                  <span>Sprint 12</span>
+                  <span>Sprint 12 {version === 'v2' && '· Mar 2 – Mar 16'}</span>
                 </div>
+                {version === 'v2' && (
+                  <div className="progress-container">
+                    <div className="progress-fill" style={{ width: '60%' }}></div>
+                  </div>
+                )}
               </div>
 
-              <div className="sidebar-field">
-                <span className="field-label">REVIEWER</span>
-                <div className="reviewer-badge">
-                  <div className="avatar" style={{ width: 20, height: 20, fontSize: 10, backgroundColor: '#3b82f6' }}>A</div>
-                  <span>Alison</span>
+              {version === 'v1' && (
+                <div className="sidebar-field">
+                  <span className="field-label">REVIEWER</span>
+                  <div className="reviewer-badge">
+                    <div className="avatar" style={{ width: 20, height: 20, fontSize: 10, backgroundColor: '#3b82f6' }}>A</div>
+                    <span>Alison</span>
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {version === 'v2' && (
+                <div className="sidebar-field">
+                  <span className="field-label">MILESTONE</span>
+                  <div className="sidebar-value">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+                    <span>v2 Homepage Launch</span>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
