@@ -21,6 +21,19 @@ import './index.css';
 function App() {
   const [version, setVersion] = useState<'original' | 'v1' | 'v2' | 'v3' | 'v4'>('v4');
   const [isLogExpanded, setIsLogExpanded] = useState(false);
+  const [backlogs, setBacklogs] = useState([
+    'Brand guidelines not yet finalized',
+    'Legacy API instability in staging environment',
+    'Waiting for approval on color palette v2'
+  ]);
+  const [newBacklog, setNewBacklog] = useState('');
+
+  const addBacklog = () => {
+    if (newBacklog.trim()) {
+      setBacklogs([newBacklog, ...backlogs]);
+      setNewBacklog('');
+    }
+  };
 
   return (
     <div className="dashboard-layout">
@@ -235,30 +248,32 @@ function App() {
           {(version === 'v1' || version === 'v2' || version === 'v3' || version === 'v4') && (
             <div className="sidebar-container" style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: (version === 'v2' || version === 'v4') ? 320 : 300 }}>
               
-              {/* V4 Timeline Progress Card */}
+              {/* V4 Backlog & Obstacles Card (Replacing Timeline) */}
               {version === 'v4' && (
                 <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
-                  <span className="field-label">TIMELINE PROGRESS</span>
-                  <div className="timeline-bar-container">
-                    <div className="timeline-segment planned" style={{ width: '50%' }}></div>
-                    <div className="timeline-segment overdue" style={{ width: '50%' }}></div>
-                    <div className="timeline-marker start" title="Mar 4"></div>
-                    <div className="timeline-marker due" style={{ left: '50%' }} title="Mar 17"></div>
-                    <div className="timeline-marker today" style={{ left: '100%' }} title="Mar 30"></div>
+                  <span className="field-label">BACKLOG & OBSTACLES</span>
+                  
+                  <div className="backlog-input-group">
+                    <input 
+                      type="text" 
+                      placeholder="Add new obstacle..." 
+                      className="backlog-input"
+                      value={newBacklog}
+                      onChange={(e) => setNewBacklog(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && addBacklog()}
+                    />
+                    <button className="btn-add-backlog" onClick={addBacklog}>
+                      <Plus size={14} />
+                    </button>
                   </div>
-                  <div className="stats-row">
-                    <div className="stat-item">
-                      <span className="stat-val">26d</span>
-                      <span className="stat-lbl">elapsed</span>
-                    </div>
-                    <div className="stat-item">
-                      <span className="stat-val overdue-text">13d</span>
-                      <span className="stat-lbl overdue-text">overdue</span>
-                    </div>
-                    <div className="stat-item">
-                      <span className="stat-val planned-text">13d</span>
-                      <span className="stat-lbl planned-text">planned</span>
-                    </div>
+
+                  <div className="backlog-list">
+                    {backlogs.map((item, idx) => (
+                      <div key={idx} className="backlog-item">
+                        <AlertTriangle size={12} color="#F59E0B" style={{ flexShrink: 0 }} />
+                        <span>{item}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
