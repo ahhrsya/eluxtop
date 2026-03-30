@@ -263,13 +263,6 @@ function App() {
                 </div>
               ) : (
                 <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
-                  <div className="sidebar-field">
-                    <span className="field-label">LABELS</span>
-                    <div className="pills-row">
-                      <span className="pill pill-design">Design</span>
-                      <span className="pill pill-homepage">Homepage</span>
-                    </div>
-                  </div>
                   <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span className="field-label" style={{ marginBottom: 0 }}>ESTIMATE</span>
                     <div className="sidebar-value">
@@ -336,23 +329,16 @@ function App() {
                 </div>
               )}
 
-              {/* V1 Specific Cards (Dependencies & Next Action) */}
+              {/* V1 Description Card (Replacing Dependencies & Next Action) */}
               {version === 'v1' && (
-                <>
-                  <div className="sidebar-right card-accent-amber" style={{ width: '100%', gap: '8px' }}>
-                    <span className="field-label">DEPENDENCIES</span>
-                    <div className="sidebar-item-box amber-accent">
-                      <span style={{ fontSize: 13, fontWeight: 500 }}>🔗 Awaiting Alison feedback</span>
-                    </div>
+                <div className="sidebar-right" style={{ width: '100%', gap: '12px' }}>
+                  <span className="field-label">DESCRIPTION</span>
+                  <div className="sidebar-description-text" style={{ fontSize: 13, color: '#475569', lineHeight: 1.6 }}>
+                    Refining the homepage layout based on initial feedback. Focus on typography hierarchy and CTA visibility. 
+                    Integrating responsive breakpoints for tablet and mobile views. 
+                    <div style={{ marginTop: 8, color: '#3b82f6', textDecoration: 'underline', cursor: 'pointer' }}>notion.so/homepage-iter...</div>
                   </div>
-                  <div className="sidebar-right card-accent-blue" style={{ width: '100%', gap: '8px' }}>
-                    <span className="field-label">NEXT ACTION</span>
-                    <div className="sidebar-item-box blue-accent" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
-                      <span style={{ fontSize: 13, fontWeight: 600 }}>Font Exploration → Rasya</span>
-                      <span style={{ fontSize: 11, color: '#64748B' }}>(existing font + 2 alternatives)</span>
-                    </div>
-                  </div>
-                </>
+                </div>
               )}
             </div>
           )}
