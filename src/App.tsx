@@ -18,7 +18,7 @@ import {
 import './index.css';
 
 function App() {
-  const [version, setVersion] = useState<'original' | 'v3' | 'v4'>('v4');
+  const [version, setVersion] = useState<'original' | 'v1' | 'v2'>('v2');
   const [isLogExpanded, setIsLogExpanded] = useState(false);
   const [backlogs, setBacklogs] = useState([
     'Brand guidelines not yet finalized',
@@ -115,16 +115,16 @@ function App() {
             Original
           </button>
           <button 
-            className={`version-btn ${version === 'v3' ? 'active' : ''}`}
-            onClick={() => setVersion('v3')}
+            className={`version-btn ${version === 'v1' ? 'active' : ''}`}
+            onClick={() => setVersion('v1')}
           >
-            Version 3
+            Version 1
           </button>
           <button 
-            className={`version-btn ${version === 'v4' ? 'active' : ''}`}
-            onClick={() => setVersion('v4')}
+            className={`version-btn ${version === 'v2' ? 'active' : ''}`}
+            onClick={() => setVersion('v2')}
           >
-            Version 4
+            Version 2
           </button>
         </div>
 
@@ -136,8 +136,8 @@ function App() {
           <span className="active">Homepage Iteration</span>
         </div>
 
-        <div className={(version === 'v3' || version === 'v4') ? 'page-grid' : ''}>
-          <div className={(version === 'v3' || version === 'v4') ? 'left-column' : ''}>
+        <div className={(version === 'v1' || version === 'v2') ? 'page-grid' : ''}>
+          <div className={(version === 'v1' || version === 'v2') ? 'left-column' : ''}>
             {/* Header Card */}
             <div className="card">
               <div className="header-row">
@@ -231,12 +231,12 @@ function App() {
             </div>
           </div>
 
-          {/* Sidebar right for V3, V4 */}
-          {(version === 'v3' || version === 'v4') && (
-            <div className="sidebar-container" style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: version === 'v4' ? 320 : 300 }}>
+          {/* Sidebar right for V1, V2 */}
+          {(version === 'v1' || version === 'v2') && (
+            <div className="sidebar-container" style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: version === 'v2' ? 320 : 300 }}>
               
-              {/* Card 1: Backlog for V4 or Properties for V3 */}
-              {version === 'v4' ? (
+              {/* Card 1: Backlog for V2 or Properties for V1 */}
+              {version === 'v2' ? (
                 <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
                   <span className="field-label">BACKLOG & OBSTACLES</span>
                   <div className="backlog-input-group">
@@ -294,8 +294,8 @@ function App() {
                 </div>
               )}
 
-              {/* V4 Activity Log Card */}
-              {version === 'v4' && (
+              {/* V2 Activity Log Card */}
+              {version === 'v2' && (
                 <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
                   <span className="field-label">ACTIVITY LOG</span>
                   <div className="activity-timeline">
@@ -336,8 +336,8 @@ function App() {
                 </div>
               )}
 
-              {/* V3 Specific Cards (Dependencies & Next Action) */}
-              {version === 'v3' && (
+              {/* V1 Specific Cards (Dependencies & Next Action) */}
+              {version === 'v1' && (
                 <>
                   <div className="sidebar-right card-accent-amber" style={{ width: '100%', gap: '8px' }}>
                     <span className="field-label">DEPENDENCIES</span>
