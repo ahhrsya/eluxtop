@@ -136,7 +136,7 @@ function App() {
         </div>
 
         <div className={(version === 'v1' || version === 'v2') ? 'page-grid' : ''}>
-          <div className={(version === 'v1' || version === 'v2') ? 'left-column' : ''}>
+          <div className={`main-cards-stack ${(version === 'v1' || version === 'v2') ? 'left-column' : ''} ${version === 'original' ? 'original-cards-gap' : ''}`}>
             {/* Header Card */}
             <div className="card">
               <div className="header-row">

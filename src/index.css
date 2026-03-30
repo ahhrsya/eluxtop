@@ -184,11 +184,20 @@ body {
 }
 
 .original-layout {
-  padding: 80px 80px;
-  gap: 128px;
+  padding: 48px 80px;
+  gap: 48px; /* Gap between breadcrumbs/switcher and card stack */
   max-width: 1360px;
   margin: 0 auto;
   width: 100%;
+}
+
+.main-cards-stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.original-cards-gap {
+  gap: 128px; /* Mega-gap between the actual cards */
 }
 
 .original-layout .card {
