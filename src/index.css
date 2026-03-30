@@ -197,7 +197,7 @@ body {
 }
 
 .original-cards-gap {
-  gap: 128px; /* Mega-gap between the actual cards */
+  gap: 32px; /* Reduced from 128px to a more practical gap per request */
 }
 
 .original-layout .card {
