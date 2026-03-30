@@ -262,31 +262,6 @@ function App() {
                 </div>
               )}
 
-              {/* V4 Time In Status Card */}
-              {version === 'v4' && (
-                <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
-                  <span className="field-label">TIME IN STATUS</span>
-                  <div className="status-duration-list">
-                    <div className="status-duration-row">
-                      <span className="status-name">To Do</span>
-                      <div className="mini-bar-track"><div className="mini-bar todo" style={{ width: '11%' }}></div></div>
-                      <span className="day-count">2d</span>
-                    </div>
-                    <div className="status-duration-row">
-                      <span className="status-name">In Progress</span>
-                      <div className="mini-bar-track"><div className="mini-bar progress" style={{ width: '33%' }}></div></div>
-                      <span className="day-count">6d</span>
-                    </div>
-                    <div className="status-duration-row dominant">
-                      <span className="status-name">Review</span>
-                      <div className="mini-bar-track"><div className="mini-bar review" style={{ width: '100%' }}></div></div>
-                      <span className="day-count">18d</span>
-                    </div>
-                  </div>
-                  <span className="bottleneck-note">Longest phase: Review (18d)</span>
-                </div>
-              )}
-
               {/* V4 Activity Log Card */}
               {version === 'v4' && (
                 <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
