@@ -184,20 +184,20 @@ body {
 }
 
 .original-layout {
-  padding: 64px 80px;
-  gap: 64px;
+  padding: 80px 80px;
+  gap: 128px;
   max-width: 1360px;
   margin: 0 auto;
   width: 100%;
 }
 
 .original-layout .card {
-  padding: 48px;
-  gap: 48px;
+  padding: 32px;
+  gap: 32px;
 }
 
 .original-layout .left-column {
-  gap: 48px;
+  gap: 128px;
 }
 
 .breadcrumbs {
