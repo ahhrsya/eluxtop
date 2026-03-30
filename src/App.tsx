@@ -17,7 +17,7 @@ import {
 import './index.css';
 
 function App() {
-  const [version, setVersion] = useState<'original' | 'v1' | 'v2'>('v2');
+  const [version, setVersion] = useState<'original' | 'v1' | 'v2'>('original'); // Back to original start
   const [isLogExpanded, setIsLogExpanded] = useState(false);
   const [backlogs, setBacklogs] = useState([
     'Brand guidelines not yet finalized',
@@ -105,7 +105,7 @@ function App() {
       </aside>
 
       {/* Main Content */}
-      <main className="main-content">
+      <main className={`main-content ${version === 'original' ? 'original-layout' : ''}`}>
         <div className="version-switcher">
           <button 
             className={`version-btn ${version === 'original' ? 'active' : ''}`}

@@ -176,14 +176,28 @@ body {
 /* Main Content */
 .main-content {
   flex: 1;
-  padding: 48px 80px;
+  padding: 32px; /* Standard padding for V1/V2 */
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 24px;
   overflow-y: auto;
-  max-width: 1360px; /* Wider but contained */
+}
+
+.original-layout {
+  padding: 64px 80px;
+  gap: 64px;
+  max-width: 1360px;
   margin: 0 auto;
   width: 100%;
+}
+
+.original-layout .card {
+  padding: 48px;
+  gap: 48px;
+}
+
+.original-layout .left-column {
+  gap: 48px;
 }
 
 .breadcrumbs {
@@ -204,7 +218,7 @@ body {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 40px;
+  padding: 32px; /* Standard internal padding */
   display: flex;
   flex-direction: column;
   gap: 32px;
