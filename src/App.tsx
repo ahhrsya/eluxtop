@@ -12,8 +12,7 @@ import {
   ChevronDown, 
   AlertTriangle, 
   Calendar, 
-  Plus,
-  CircleDot
+  Plus
 } from 'lucide-react';
 import './index.css';
 
@@ -261,31 +260,9 @@ function App() {
                     ))}
                   </div>
                 </div>
-              ) : (
-                <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
-                  <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className="field-label" style={{ marginBottom: 0 }}>ESTIMATE</span>
-                    <div className="sidebar-value">
-                      <CircleDot size={16} color="#64748B" />
-                      <span>3 points</span>
-                    </div>
-                  </div>
-                  <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className="field-label" style={{ marginBottom: 0 }}>REVIEWER</span>
-                    <div className="reviewer-badge" style={{ padding: 0, border: 'none' }}>
-                      <div className="avatar" style={{ width: 18, height: 18, fontSize: 9, backgroundColor: '#3b82f6' }}>A</div>
-                      <span style={{ fontSize: 13 }}>Alison</span>
-                    </div>
-                  </div>
-                  <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className="field-label" style={{ marginBottom: 0 }}>CYCLE</span>
-                    <div className="sidebar-value">
-                      <CircleDot size={16} color="#64748B" />
-                      <span>Sprint 12</span>
-                    </div>
-                  </div>
-                </div>
-              )}
+              ) : (null)}
+              
+              {/* V1 Top Card (Removed as requested) */}
 
               {/* V2 Activity Log Card */}
               {version === 'v2' && (
@@ -329,7 +306,7 @@ function App() {
                 </div>
               )}
 
-              {/* V1 Description Card (Replacing Dependencies & Next Action) */}
+              {/* V1 Description Card */}
               {version === 'v1' && (
                 <div className="sidebar-right" style={{ width: '100%', gap: '12px' }}>
                   <span className="field-label">DESCRIPTION</span>
@@ -337,6 +314,34 @@ function App() {
                     Refining the homepage layout based on initial feedback. Focus on typography hierarchy and CTA visibility. 
                     Integrating responsive breakpoints for tablet and mobile views. 
                     <div style={{ marginTop: 8, color: '#3b82f6', textDecoration: 'underline', cursor: 'pointer' }}>notion.so/homepage-iter...</div>
+                  </div>
+                </div>
+              )}
+
+              {/* V1 Backlog Card (Added below Description) */}
+              {version === 'v1' && (
+                <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
+                  <span className="field-label">BACKLOG & OBSTACLES</span>
+                  <div className="backlog-input-group">
+                    <input 
+                      type="text" 
+                      placeholder="Add new obstacle..." 
+                      className="backlog-input"
+                      value={newBacklog}
+                      onChange={(e) => setNewBacklog(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && addBacklog()}
+                    />
+                    <button className="btn-add-backlog" onClick={addBacklog}>
+                      <Plus size={14} />
+                    </button>
+                  </div>
+                  <div className="backlog-list">
+                    {backlogs.map((item, idx) => (
+                      <div key={idx} className="backlog-item">
+                        <AlertTriangle size={12} color="#F59E0B" style={{ flexShrink: 0 }} />
+                        <span>{item}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
