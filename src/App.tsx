@@ -19,7 +19,7 @@ import {
 import './index.css';
 
 function App() {
-  const [version, setVersion] = useState<'original' | 'v1' | 'v2' | 'v3'>('v3');
+  const [version, setVersion] = useState<'original' | 'v1' | 'v2' | 'v3' | 'v4'>('v4');
 
   return (
     <div className="dashboard-layout">
@@ -119,6 +119,12 @@ function App() {
           >
             Version 3
           </button>
+          <button 
+            className={`version-btn ${version === 'v4' ? 'active' : ''}`}
+            onClick={() => setVersion('v4')}
+          >
+            Version 4
+          </button>
         </div>
 
         <div className="breadcrumbs">
@@ -129,8 +135,8 @@ function App() {
           <span className="active">Homepage Iteration</span>
         </div>
 
-        <div className={(version === 'v1' || version === 'v2' || version === 'v3') ? 'page-grid' : ''}>
-          <div className={(version === 'v1' || version === 'v2' || version === 'v3') ? 'left-column' : ''}>
+        <div className={(version === 'v1' || version === 'v2' || version === 'v3' || version === 'v4') ? 'page-grid' : ''}>
+          <div className={(version === 'v1' || version === 'v2' || version === 'v3' || version === 'v4') ? 'left-column' : ''}>
             {/* Header Card */}
             <div className="card">
               <div className="header-row">
@@ -224,77 +230,152 @@ function App() {
             </div>
           </div>
 
-          {/* Sidebar right for V1, V2, V3 */}
-          {(version === 'v1' || version === 'v2' || version === 'v3') && (
-            <div className="sidebar-container" style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: 300 }}>
+          {/* Sidebar right for V1, V2, V3, V4 */}
+          {(version === 'v1' || version === 'v2' || version === 'v3' || version === 'v4') && (
+            <div className="sidebar-container" style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: (version === 'v2' || version === 'v4') ? 320 : 300 }}>
               
-              {/* Properties Card (V3 uses separate cards) */}
-              <div className="sidebar-right" style={{ width: '100%', gap: version === 'v3' ? '16px' : '24px' }}>
-                <div className="sidebar-field">
-                  <span className="field-label">LABELS</span>
-                  <div className="pills-row">
-                    <span className="pill pill-design">Design</span>
-                    <span className="pill pill-homepage">Homepage</span>
+              {/* V4 Timeline Progress Card */}
+              {version === 'v4' && (
+                <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
+                  <span className="field-label">TIMELINE PROGRESS</span>
+                  <div className="timeline-bar-container">
+                    <div className="timeline-segment planned" style={{ width: '50%' }}></div>
+                    <div className="timeline-segment overdue" style={{ width: '50%' }}></div>
+                    <div className="timeline-marker start" title="Mar 4"></div>
+                    <div className="timeline-marker due" style={{ left: '50%' }} title="Mar 17"></div>
+                    <div className="timeline-marker today" style={{ left: '100%' }} title="Mar 30"></div>
                   </div>
-                </div>
-
-                <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span className="field-label" style={{ marginBottom: 0 }}>ESTIMATE</span>
-                  <div className="sidebar-value">
-                    <Diamond size={16} color="#64748B" />
-                    <span>{version === 'v1' ? '3' : version === 'v2' ? '5' : '3'} points</span>
-                  </div>
-                </div>
-
-                {version === 'v2' && (
-                  <div className="status-banner">
-                    <span>⏳ Waiting feedback — Alison</span>
-                  </div>
-                )}
-
-                {version === 'v3' && (
-                  <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span className="field-label" style={{ marginBottom: 0 }}>REVIEWER</span>
-                    <div className="reviewer-badge" style={{ padding: 0, border: 'none' }}>
-                      <div className="avatar" style={{ width: 18, height: 18, fontSize: 9, backgroundColor: '#3b82f6' }}>A</div>
-                      <span style={{ fontSize: 13 }}>Alison</span>
+                  <div className="stats-row">
+                    <div className="stat-item">
+                      <span className="stat-val">26d</span>
+                      <span className="stat-lbl">elapsed</span>
                     </div>
-                  </div>
-                )}
-
-                <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span className="field-label" style={{ marginBottom: 0 }}>CYCLE</span>
-                  <div className="sidebar-value">
-                    <CircleDot size={16} color="#64748B" />
-                    <span>Sprint 12 {version === 'v2' && '· Mar 2 – Mar 16'}</span>
-                  </div>
-                </div>
-                {version === 'v2' && (
-                  <div className="progress-container">
-                    <div className="progress-fill" style={{ width: '60%' }}></div>
-                  </div>
-                )}
-              </div>
-
-              {/* Card 2: Dependencies (V3) */}
-              {version === 'v3' && (
-                <div className="sidebar-right card-accent-amber" style={{ width: '100%', gap: '8px' }}>
-                  <span className="field-label">DEPENDENCIES</span>
-                  <div className="sidebar-item-box amber-accent">
-                    <span style={{ fontSize: 13, fontWeight: 500 }}>🔗 Awaiting Alison feedback</span>
+                    <div className="stat-item">
+                      <span className="stat-val overdue-text">13d</span>
+                      <span className="stat-lbl overdue-text">overdue</span>
+                    </div>
+                    <div className="stat-item">
+                      <span className="stat-val planned-text">13d</span>
+                      <span className="stat-lbl planned-text">planned</span>
+                    </div>
                   </div>
                 </div>
               )}
 
-              {/* Card 3: Next Action (V3) */}
-              {version === 'v3' && (
-                <div className="sidebar-right card-accent-blue" style={{ width: '100%', gap: '8px' }}>
-                  <span className="field-label">NEXT ACTION</span>
-                  <div className="sidebar-item-box blue-accent" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
-                    <span style={{ fontSize: 13, fontWeight: 600 }}>Font Exploration → Rasya</span>
-                    <span style={{ fontSize: 11, color: '#64748B' }}>(existing font + 2 alternatives)</span>
+              {/* V4 Time In Status Card */}
+              {version === 'v4' && (
+                <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
+                  <span className="field-label">TIME IN STATUS</span>
+                  <div className="status-duration-list">
+                    <div className="status-duration-row">
+                      <span className="status-name">To Do</span>
+                      <div className="mini-bar-track"><div className="mini-bar todo" style={{ width: '11%' }}></div></div>
+                      <span className="day-count">2d</span>
+                    </div>
+                    <div className="status-duration-row">
+                      <span className="status-name">In Progress</span>
+                      <div className="mini-bar-track"><div className="mini-bar progress" style={{ width: '33%' }}></div></div>
+                      <span className="day-count">6d</span>
+                    </div>
+                    <div className="status-duration-row dominant">
+                      <span className="status-name">Review</span>
+                      <div className="mini-bar-track"><div className="mini-bar review" style={{ width: '100%' }}></div></div>
+                      <span className="day-count">18d</span>
+                    </div>
+                  </div>
+                  <span className="bottleneck-note">Longest phase: Review (18d)</span>
+                </div>
+              )}
+
+              {/* V4 Activity Log Card */}
+              {version === 'v4' && (
+                <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
+                  <span className="field-label">ACTIVITY LOG</span>
+                  <div className="activity-timeline">
+                    {[
+                      { time: '5d ago', dot: 'green', text: 'Lintang commented: status update...' },
+                      { time: '12d ago', dot: 'blue', text: 'Status changed: In Progress → Review' },
+                      { time: '14d ago', dot: 'gray', text: 'Ahrasya updated description' },
+                      { time: '20d ago', dot: 'blue', text: 'Status changed: To Do → In Progress' },
+                      { time: '26d ago', dot: 'gray', text: 'Task created by Lintang' }
+                    ].map((entry, idx) => (
+                      <div key={idx} className="activity-entry">
+                        <span className="activity-time">{entry.time}</span>
+                        <div className={`activity-dot ${entry.dot}`}></div>
+                        <span className="activity-text" title={entry.text}>{entry.text}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
+              )}
+
+              {/* Properties Card (V1, V2, V3) */}
+              {(version === 'v1' || version === 'v2' || version === 'v3') && (
+                <div className="sidebar-right" style={{ width: '100%', gap: version === 'v3' ? '16px' : '24px' }}>
+                  <div className="sidebar-field">
+                    <span className="field-label">LABELS</span>
+                    <div className="pills-row">
+                      <span className="pill pill-design">Design</span>
+                      <span className="pill pill-homepage">Homepage</span>
+                    </div>
+                  </div>
+
+                  <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span className="field-label" style={{ marginBottom: 0 }}>ESTIMATE</span>
+                    <div className="sidebar-value">
+                      <Diamond size={16} color="#64748B" />
+                      <span>{version === 'v1' ? '3' : version === 'v2' ? '5' : '3'} points</span>
+                    </div>
+                  </div>
+
+                  {version === 'v2' && (
+                    <div className="status-banner">
+                      <span>⏳ Waiting feedback — Alison</span>
+                    </div>
+                  )}
+
+                  {version === 'v3' && (
+                    <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span className="field-label" style={{ marginBottom: 0 }}>REVIEWER</span>
+                      <div className="reviewer-badge" style={{ padding: 0, border: 'none' }}>
+                        <div className="avatar" style={{ width: 18, height: 18, fontSize: 9, backgroundColor: '#3b82f6' }}>A</div>
+                        <span style={{ fontSize: 13 }}>Alison</span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="sidebar-field" style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span className="field-label" style={{ marginBottom: 0 }}>CYCLE</span>
+                    <div className="sidebar-value">
+                      <CircleDot size={16} color="#64748B" />
+                      <span>Sprint 12 {version === 'v2' && '· Mar 2 – Mar 16'}</span>
+                    </div>
+                  </div>
+                  {version === 'v2' && (
+                    <div className="progress-container">
+                      <div className="progress-fill" style={{ width: '60%' }}></div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Dependencies & Next Action for V3 */}
+              {version === 'v3' && (
+                <>
+                  <div className="sidebar-right card-accent-amber" style={{ width: '100%', gap: '8px' }}>
+                    <span className="field-label">DEPENDENCIES</span>
+                    <div className="sidebar-item-box amber-accent">
+                      <span style={{ fontSize: 13, fontWeight: 500 }}>🔗 Awaiting Alison feedback</span>
+                    </div>
+                  </div>
+                  <div className="sidebar-right card-accent-blue" style={{ width: '100%', gap: '8px' }}>
+                    <span className="field-label">NEXT ACTION</span>
+                    <div className="sidebar-item-box blue-accent" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
+                      <span style={{ fontSize: 13, fontWeight: 600 }}>Font Exploration → Rasya</span>
+                      <span style={{ fontSize: 11, color: '#64748B' }}>(existing font + 2 alternatives)</span>
+                    </div>
+                  </div>
+                </>
               )}
 
               {/* Original Reviewer field for V1 */}
