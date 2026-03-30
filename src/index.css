@@ -690,3 +690,25 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.btn-toggle-log {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-top: 1px solid #f1f5f9;
+  margin-top: 8px;
+  transition: color 0.2s;
+}
+
+.btn-toggle-log:hover {
+  color: var(--primary-color);
+}

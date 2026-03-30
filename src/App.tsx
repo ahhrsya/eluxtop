@@ -20,6 +20,7 @@ import './index.css';
 
 function App() {
   const [version, setVersion] = useState<'original' | 'v1' | 'v2' | 'v3' | 'v4'>('v4');
+  const [isLogExpanded, setIsLogExpanded] = useState(false);
 
   return (
     <div className="dashboard-layout">
@@ -267,13 +268,26 @@ function App() {
                 <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
                   <span className="field-label">ACTIVITY LOG</span>
                   <div className="activity-timeline">
-                    {[
-                      { time: '5d ago', dot: 'green', text: 'Lintang commented: status update...' },
-                      { time: '12d ago', dot: 'blue', text: 'Status changed: In Progress → Review' },
-                      { time: '14d ago', dot: 'gray', text: 'Ahrasya updated description' },
-                      { time: '20d ago', dot: 'blue', text: 'Status changed: To Do → In Progress' },
-                      { time: '26d ago', dot: 'gray', text: 'Task created by Lintang' }
-                    ].map((entry, idx) => (
+                    {(isLogExpanded 
+                      ? [
+                        { time: '5d ago', dot: 'green', text: 'Lintang commented: status update...' },
+                        { time: '12d ago', dot: 'blue', text: 'Status changed: In Progress → Review' },
+                        { time: '14d ago', dot: 'gray', text: 'Ahrasya updated description' },
+                        { time: '15d ago', dot: 'blue', text: '3 subtasks added by Ahrasya' },
+                        { time: '18d ago', dot: 'gray', text: 'Lintang added 2 labels: "Design", "Homepage"' },
+                        { time: '20d ago', dot: 'blue', text: 'Status changed: To Do → In Progress' },
+                        { time: '22d ago', dot: 'gray', text: 'Lintang added "Project - MellowArt" epic' },
+                        { time: '24d ago', dot: 'blue', text: 'Due date changed: Mar 10 → Mar 17' },
+                        { time: '26d ago', dot: 'gray', text: 'Task created by Lintang' }
+                      ]
+                      : [
+                        { time: '5d ago', dot: 'green', text: 'Lintang commented: status update...' },
+                        { time: '12d ago', dot: 'blue', text: 'Status changed: In Progress → Review' },
+                        { time: '14d ago', dot: 'gray', text: 'Ahrasya updated description' },
+                        { time: '15d ago', dot: 'blue', text: '3 subtasks added by Ahrasya' },
+                        { time: '18d ago', dot: 'gray', text: 'Lintang added 2 labels: "Design", "Homepage"' }
+                      ]
+                    ).map((entry, idx) => (
                       <div key={idx} className="activity-entry">
                         <span className="activity-time">{entry.time}</span>
                         <div className={`activity-dot ${entry.dot}`}></div>
@@ -281,6 +295,13 @@ function App() {
                       </div>
                     ))}
                   </div>
+                  <button 
+                    className="btn-toggle-log"
+                    onClick={() => setIsLogExpanded(!isLogExpanded)}
+                  >
+                    {isLogExpanded ? 'Show less' : `Show more (${4} more)`}
+                    <ChevronDown size={14} style={{ transform: isLogExpanded ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+                  </button>
                 </div>
               )}
 
