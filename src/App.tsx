@@ -197,10 +197,12 @@ function App() {
             </div>
 
             {/* Description Card */}
-            <div className="description-card card" style={{ gap: 16 }}>
-              <h3 className="card-title">Description</h3>
-              <p className="notion-link">https://elux.notion.site/Iteration-of-Homepage-313f65e9e88080f984b7c3aecbd12c81?source=copy_link</p>
-            </div>
+            {(version === 'original') && (
+              <div className="description-card card" style={{ gap: 16 }}>
+                <h3 className="card-title">Description</h3>
+                <p className="notion-link">https://elux.notion.site/Iteration-of-Homepage-313f65e9e88080f984b7c3aecbd12c81?source=copy_link</p>
+              </div>
+            )}
 
             {/* Subtasks Card */}
             <div className="card">
@@ -234,7 +236,19 @@ function App() {
           {(version === 'v1' || version === 'v2') && (
             <div className="sidebar-container" style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: version === 'v2' ? 320 : 300 }}>
               
-              {/* Card 1: Backlog for V2 or Properties for V1 */}
+              {/* V2 Specific: Description Card atop Backlog */}
+              {version === 'v2' && (
+                <div className="sidebar-right" style={{ width: '100%', gap: '12px' }}>
+                  <span className="field-label">DESCRIPTION</span>
+                  <div className="sidebar-description-text" style={{ fontSize: 13, color: '#475569', lineHeight: 1.6 }}>
+                    Refining the homepage layout based on initial feedback. Focus on typography hierarchy and CTA visibility. 
+                    Integrating responsive breakpoints for tablet and mobile views. 
+                    <div style={{ marginTop: 8, color: '#3b82f6', textDecoration: 'underline', cursor: 'pointer' }}>notion.so/homepage-iter...</div>
+                  </div>
+                </div>
+              )}
+
+              {/* Card 1: Backlog for V1, V2 */}
               {version === 'v2' ? (
                 <div className="sidebar-right" style={{ width: '100%', gap: '16px' }}>
                   <span className="field-label">BACKLOG & OBSTACLES</span>
