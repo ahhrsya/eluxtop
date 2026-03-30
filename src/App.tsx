@@ -197,7 +197,7 @@ function App() {
             </div>
 
             {/* Description Card */}
-            {(version === 'original' || version === 'v2') && (
+            {version === 'original' && (
               <div className="description-card card" style={{ gap: 16 }}>
                 <h3 className="card-title">Description</h3>
                 <p className="notion-link">https://elux.notion.site/Iteration-of-Homepage-313f65e9e88080f984b7c3aecbd12c81?source=copy_link</p>
